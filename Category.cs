@@ -20,5 +20,26 @@ namespace LibraryADONET
                 VTYS.SqlExecuteNonQuery(cmd);
             }
         }
+
+        public List<Category> GetAll()
+        {
+            using (SqlCommand cmd = new SqlCommand("Select * from Categories"))
+            {
+                var categoryList = new List<Category>();
+                
+                SqlDataReader reader = VTYS.SqlExecuteReader(cmd);
+                while (reader.Read())
+                {
+                    Category category = new Category
+                    {
+                        CategoryId = Convert.ToInt32(reader[0]),
+                        CategoryName = reader[1].ToString()
+                    };
+
+                    categoryList.Add(category);
+                }
+                return categoryList;
+            }
+        }
     }
 }
