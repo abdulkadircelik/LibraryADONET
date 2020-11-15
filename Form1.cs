@@ -101,6 +101,16 @@ namespace LibraryADONET
                 .Where(b=>b.CategoryId==1)
                 .ToList();
         }
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new BookAddForm().Show();
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadBooks();
+        }
     }
 
     

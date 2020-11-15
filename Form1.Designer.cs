@@ -36,6 +36,9 @@ namespace LibraryADONET
             this.categoriesFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.booksFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cbCategories = new System.Windows.Forms.ComboBox();
+            this.bookToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +54,8 @@ namespace LibraryADONET
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.bookToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -73,7 +77,7 @@ namespace LibraryADONET
             this.categoriesFromFileToolStripMenuItem,
             this.booksFromFileToolStripMenuItem});
             this.ımportToolStripMenuItem.Name = "ımportToolStripMenuItem";
-            this.ımportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ımportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.ımportToolStripMenuItem.Text = "Import";
             // 
             // categoriesFromFileToolStripMenuItem
@@ -98,6 +102,29 @@ namespace LibraryADONET
             this.cbCategories.Size = new System.Drawing.Size(186, 21);
             this.cbCategories.TabIndex = 2;
             this.cbCategories.SelectedIndexChanged += new System.EventHandler(this.cbCategories_SelectedIndexChanged);
+            // 
+            // bookToolStripMenuItem
+            // 
+            this.bookToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem,
+            this.addToolStripMenuItem});
+            this.bookToolStripMenuItem.Name = "bookToolStripMenuItem";
+            this.bookToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.bookToolStripMenuItem.Text = "Book";
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Text = "Add";
+            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -128,6 +155,9 @@ namespace LibraryADONET
         private System.Windows.Forms.ToolStripMenuItem categoriesFromFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem booksFromFileToolStripMenuItem;
         private System.Windows.Forms.ComboBox cbCategories;
+        private System.Windows.Forms.ToolStripMenuItem bookToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }
 
