@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryADONET
 {
-    public class Book : IBookDal
+    public class Book
     {
         public int Id { get; set; }
         public string Title { get; set; }

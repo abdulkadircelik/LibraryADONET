@@ -1,0 +1,90 @@
+﻿﻿using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+
+namespace LibraryADONET
+{
+    public class BookDal : IBookDal
+    {
+        public void Add(Book book)
+        {
+            using (SqlCommand cmd =
+                new SqlCommand("INSERT INTO Books (Title,Description, Year, CategoryId) VALUES (@Title,@Description, @Year, @CategoryId)"))
+            {
+                cmd.Parameters.AddWithValue("Title", book.Title);
+                cmd.Parameters.AddWithValue("Description", book.Description);
+                cmd.Parameters.AddWithValue("Year", book.Year);
+                cmd.Parameters.AddWithValue("CategoryId", book.CategoryId);
+                VTYS.SqlExecuteNonQuery(cmd);
+            }
+        }
+
+        public void Delete(Book book)
+        {
+            using (SqlCommand cmd =
+                new SqlCommand("DELETE FROM Books where Id = @Id"))
+            {
+                cmd.Parameters.AddWithValue("Id", book.Id);
+                VTYS.SqlExecuteNonQuery(cmd);
+            }
+        }
+
+        public void Update(Book book)
+        {
+            using (SqlCommand cmd =
+                new SqlCommand("UPDATE Books set Title = @Title, Description = @Description, Year = @Year, CategoryId = @CategoryId where Id = @Id"))
+            {
+                cmd.Parameters.AddWithValue("Id", book.Id);
+                cmd.Parameters.AddWithValue("Title", book.Title);
+                cmd.Parameters.AddWithValue("Description", book.Description);
+                cmd.Parameters.AddWithValue("Year", book.Year);
+                cmd.Parameters.AddWithValue("CategoryId", book.CategoryId);
+                VTYS.SqlExecuteNonQuery(cmd);
+            }
+        }
+
+        public List<Book> GetAll()
+        {
+            var bookList = new List<Book>();
+            SqlCommand cmd = new SqlCommand("Select * from Books");
+
+            SqlDataReader reader = VTYS.SqlExecuteReader(cmd);
+            while (reader.Read())
+            {
+                Book book = new Book
+                {
+                    Id = Convert.ToInt32(reader[0]),
+                    Title = reader[1].ToString(),
+                    Description = reader[2].ToString(),
+                    Year = int.Parse(reader[3].ToString()),
+                    CategoryId = Convert.ToInt32(reader[4])
+                };
+
+                bookList.Add(book);
+            }
+            return bookList;
+        }
+
+        public Book GetById(int id)
+        {
+            SqlCommand cmd = new SqlCommand("Select * from Books where Id = @Id");
+            cmd.Parameters.AddWithValue("Id", id);
+
+            SqlDataReader reader = VTYS.SqlExecuteReader(cmd);
+            while (reader.Read())
+            {
+                Book book = new Book
+                {
+                    Id = Convert.ToInt32(reader[0]),
+                    Title = reader[1].ToString(),
+                    Description = reader[2].ToString(),
+                    Year = int.Parse(reader[3].ToString()),
+                    CategoryId = Convert.ToInt32(reader[4])
+                };
+
+                return book;
+            }
+            return null;
+        }
+    }
+}
