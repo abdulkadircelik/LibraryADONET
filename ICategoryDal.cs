@@ -12,6 +12,6 @@ namespace LibraryADONET
         void Update(Category category);
         void Delete(Category category);
         List<Book> GetAll();
-        Book GetById(int id);
+        Category GetById(int id);
     }
 }
