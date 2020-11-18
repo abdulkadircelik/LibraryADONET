@@ -20,7 +20,18 @@ namespace LibraryADONET
                 VTYS.SqlExecuteNonQuery(cmd);
             }
         }
+        public Category GetById()
+        {
+            return null;
+        }
+        public void Update(Category category)
+        {
 
+        }
+        public void Delete(Category category)
+        {
+
+        }
         public List<Category> GetAll()
         {
             using (SqlCommand cmd = new SqlCommand("Select * from Categories"))

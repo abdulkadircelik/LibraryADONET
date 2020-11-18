@@ -16,12 +16,12 @@ namespace LibraryADONET
             FilePath = _filePath;
         }
         public string FilePath { get => filePath; set => filePath = value; }
-        
+
         public void Import()
         {
             List<T> records = new List<T>();
             using (var reader = new StreamReader(FilePath))
-            using (var csv = new CsvReader(reader,CultureInfo.InvariantCulture))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 csv.Configuration.HasHeaderRecord = false;
                 records = csv.GetRecords<T>().ToList();
