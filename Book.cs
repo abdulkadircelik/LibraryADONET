@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryADONET
 {
-    public class Book
+    public class Book : IBookDal
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -34,18 +34,7 @@ namespace LibraryADONET
             return $"{Title}";
         }
 
-        public void Add(Book book)
-        {
-            using (SqlCommand cmd =
-                   new SqlCommand("INSERT INTO Books (Title,Description, Year, CategoryId) VALUES (@Title,@Description, @Year, @CategoryId)"))
-            {
-                cmd.Parameters.AddWithValue("Title", book.Title);
-                cmd.Parameters.AddWithValue("Description", book.Description);
-                cmd.Parameters.AddWithValue("Year", book.Year);
-                cmd.Parameters.AddWithValue("CategoryId", book.CategoryId);
-                VTYS.SqlExecuteNonQuery(cmd);
-            }
-        }
+       
 
         public List<Book> GetAll()
         {
@@ -67,6 +56,34 @@ namespace LibraryADONET
                 bookList.Add(book);
             }
             return bookList;
+        }
+
+        public Book GetById()
+        {
+            return null;
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public void Delete()
+        {
+
+        }
+
+        public void Add(Book book)
+        {
+            using (SqlCommand cmd =
+                   new SqlCommand("INSERT INTO Books (Title,Description, Year, CategoryId) VALUES (@Title,@Description, @Year, @CategoryId)"))
+            {
+                cmd.Parameters.AddWithValue("Title", book.Title);
+                cmd.Parameters.AddWithValue("Description", book.Description);
+                cmd.Parameters.AddWithValue("Year", book.Year);
+                cmd.Parameters.AddWithValue("CategoryId", book.CategoryId);
+                VTYS.SqlExecuteNonQuery(cmd);
+            }
         }
     }
 }
