@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryADONET.Concrete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,7 +29,7 @@ namespace LibraryADONET
                 CategoryId = 1
             };
 
-            book.Add(book);
+            new BookDal().Add(book);
             MessageBox.Show($"{book} has been added.", "Succed");
         }
 
@@ -39,7 +40,7 @@ namespace LibraryADONET
 
         private void LoadCategories()
         {
-            cbCategory.DataSource = new Category().GetAll().ToList();
+            cbCategory.DataSource = new CategoryDal().GetAll().ToList();
             cbCategory.DisplayMember = "CategoryName";
             cbCategory.ValueMember = "CategoryId";
         }

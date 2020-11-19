@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using LibraryADONET.Concrete;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,7 +37,7 @@ namespace LibraryADONET
                     filePath = openFileDialog.FileName;
                     var importer = new FileImporter<Book>(filePath);
                     importer.Import();
-                    importer.List.ForEach(b => new Book().Add(b));
+                    importer.List.ForEach(b => new BookDal().Add(b));
                 }
             }
 
@@ -50,12 +51,12 @@ namespace LibraryADONET
 
         private void LoadBooks()
         {
-            dgvBooks.DataSource = new Book().GetAll().ToList();
+            dgvBooks.DataSource = new BookDal().GetAll().ToList();
         }
 
         private void LoadCategories()
         {
-            cbCategories.DataSource = new Category().GetAll().ToList();
+            cbCategories.DataSource = new CategoryDal().GetAll().ToList();
             cbCategories.DisplayMember = "CategoryName";
             cbCategories.ValueMember = "CategoryId";
         }
@@ -70,7 +71,7 @@ namespace LibraryADONET
                     filePath = openFileDialog.FileName;
                     var importer = new FileImporter<Category>(filePath);
                     importer.Import();
-                    importer.List.ForEach(c => new Category().Add(c));
+                    importer.List.ForEach(c => new CategoryDal().Add(c));
                 }
 
                 LoadCategories();
@@ -81,8 +82,8 @@ namespace LibraryADONET
 
         private void cbCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var bookList = new Book().GetAll();
-            var categoryList = new Category().GetAll();
+            var bookList = new BookDal().GetAll();
+            var categoryList = new CategoryDal().GetAll();
             dgvBooks.DataSource =
                 bookList
                 .Join(categoryList,
