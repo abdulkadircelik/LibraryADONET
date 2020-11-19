@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryADONET
+namespace LibraryADONET.Abstract
 {
     public interface IImporter
     {

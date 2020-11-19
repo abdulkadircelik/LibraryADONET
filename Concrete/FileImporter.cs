@@ -1,10 +1,11 @@
 ﻿using CsvHelper;
+using LibraryADONET.Abstract;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace LibraryADONET
+namespace LibraryADONET.Concrete
 {
     public class FileImporter<T> : IImporter
     {

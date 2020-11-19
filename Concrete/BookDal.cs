@@ -1,8 +1,10 @@
-﻿﻿using System;
+﻿using LibraryADONET.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
-namespace LibraryADONET
+namespace LibraryADONET.Concrete
 {
     public class BookDal : IBookDal
     {
@@ -85,6 +87,14 @@ namespace LibraryADONET
                 return book;
             }
             return null;
+        }
+
+        public List<Book> GetByCategoryId(int id)
+        {
+            var query = (from book in GetAll()
+                         where book.Id == id
+                         select book);
+            return query.ToList();
         }
     }
 }
