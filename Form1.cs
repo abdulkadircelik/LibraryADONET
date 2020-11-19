@@ -23,8 +23,8 @@ namespace LibraryADONET
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadBooks();
             LoadCategories();
+            LoadBooks();
         }
 
         private void booksFromFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -82,25 +82,34 @@ namespace LibraryADONET
 
         private void cbCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var bookList = new BookDal().GetAll();
-            var categoryList = new CategoryDal().GetAll();
-            dgvBooks.DataSource =
-                bookList
-                .Join(categoryList,
-                b => b.CategoryId,
-                c => c.CategoryId,
-                (b, c) => new
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Description = b.Description,
-                    Year = b.Year,
-                    CategoryId = c.CategoryId,
-                    CategoryName = c.CategoryName
+            try
+            {
+                var bookList = new BookDal().GetAll();
+                var categoryList = new CategoryDal().GetAll();
+                dgvBooks.DataSource =
+                    bookList
+                    .Join(categoryList,
+                    b => b.CategoryId,
+                    c => c.CategoryId,
+                    (b, c) => new
+                    {
+                        Id = b.Id,
+                        Title = b.Title,
+                        Description = b.Description,
+                        Year = b.Year,
+                        CategoryId = c.CategoryId,
+                        CategoryName = c.CategoryName
 
-                })
-                .Where(b=>b.CategoryId==1)
-                .ToList();
+                    })
+                    .Where(b => b.CategoryId == Convert.ToInt32(cbCategories.SelectedValue.ToString()))
+                    .ToList();
+            }
+            catch 
+            {
+
+               
+            }
+            
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -111,6 +120,52 @@ namespace LibraryADONET
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadBooks();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you want to exit?","Confirmation",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    this.Close();
+                    break;
+                case DialogResult.No:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void dgvBooks_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            var row = dgvBooks.Rows[e.RowIndex];
+            var book = new BookDal().GetById(Convert.ToInt32(row.Cells[0].Value.ToString()));
+            lblBook.Text = book.ToString();
+        }
+
+        private void lblMouse_MouseMove(object sender, MouseEventArgs e)
+        {
+           
+        }
+
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        {
+            lblMouse.Text = $"{e.X},{e.Y}";
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string key = txtSearch.Text.ToLower();
+            dgvBooks.DataSource =
+                new BookDal()
+                .GetAll()
+                .Where(b => b.Title.ToLower()
+                .Contains(key))
+                .ToList();
         }
     }
 
