@@ -29,13 +29,22 @@ namespace LibraryADONET
                 CategoryId = 1
             };
 
-            new BookDal().Add(book);
+            BookDal bookDal = new BookDal();
+
+            var debugService = new DebugService();
+            bookDal.BookAdded += debugService.OnBookAdded;
+
+            bookDal.Add(book);
             MessageBox.Show($"{book} has been added.", "Succed");
+
+            
         }
 
         private void BookAddForm_Load(object sender, EventArgs e)
         {
             LoadCategories();
+           
+
         }
 
         private void LoadCategories()

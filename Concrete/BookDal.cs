@@ -8,6 +8,9 @@ namespace LibraryADONET.Concrete
 {
     public class BookDal : IBookDal
     {
+        // public delegate void BookAddedEventHandler(object source, BookEventHandler args)
+        public EventHandler<BookEventHandler> BookAdded;
+
         public void Add(Book book)
         {
             using (SqlCommand cmd =
@@ -18,7 +21,14 @@ namespace LibraryADONET.Concrete
                 cmd.Parameters.AddWithValue("Year", book.Year);
                 cmd.Parameters.AddWithValue("CategoryId", book.CategoryId);
                 VTYS.SqlExecuteNonQuery(cmd);
+                OnBookAdded(book);
             }
+        }
+
+        protected virtual void OnBookAdded(Book book)
+        {
+            if (BookAdded != null)
+                BookAdded(this, new BookEventHandler() {Book = book});
         }
 
         public void Delete(Book book)

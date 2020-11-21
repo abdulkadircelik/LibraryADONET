@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
@@ -23,8 +24,11 @@ namespace LibraryADONET
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Debug.WriteLine("Debug mode message");
             LoadCategories();
             LoadBooks();
+
+            
         }
 
         private void booksFromFileToolStripMenuItem_Click(object sender, EventArgs e)
